@@ -46,5 +46,19 @@ function transient_execute
     commandline --function execute
 end
 
-bind -M insert \r transient_execute # when enable vi keybinding use this bind
-# bind \r transient_execute # disable vi keybinding use this bind
+function ctrl_c_transient_execute
+    set --global TRANSIENT 2
+    if test "$(commandline -b)" = ""
+        commandline --function repaint execute
+        return 0
+    end
+
+    commandline --function repaint cancel-commandline kill-inner-line repaint-mode
+end
+
+# When enable vi keybinding use `bind -M insert`
+bind -M insert \r transient_execute
+bind -M insert \cc ctrl_c_transient_execute
+
+# Disable vi keybinding use `bind`
+# bind \r transient_execute 
