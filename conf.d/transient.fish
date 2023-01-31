@@ -7,6 +7,8 @@ function __default_transient_prompt
     printf (set_color 5FD700)"❯ "(set_color normal)
 end
 
+set --global TRANSIENT 0
+
 function fish_prompt
     _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT" = 0
         function __raise_pipestatus
@@ -62,9 +64,5 @@ function ctrl_c_transient_execute
     commandline --function repaint cancel-commandline kill-inner-line repaint-mode
 end
 
-# When enable vi keybinding use `bind -M insert`
 bind -M insert \r transient_execute
 bind -M insert \cc ctrl_c_transient_execute
-
-# Disable vi keybinding use `bind`
-# bind \r transient_execute 
