@@ -1,6 +1,6 @@
 # Transient Prompt By Fish Shell
 
-## example
+## Example
 ```shell
 ❯ ls -G
 conf.d  README.md
@@ -16,15 +16,15 @@ conf.d  README.md
 ❯
 ```
 
-## install
+## Install
 ```fish
 fisher install zzhaolei/transient-prompt.fish
 ```
 
-## configuration
-you can set the `transient_prompt_func` function, customize the `transient prompt`.
+## Configuration
+You can set the `transient_prompt_func` function, customize the `transient prompt`.
 
-example:
+Example:
 
 `before`:
 ```shell
@@ -55,3 +55,6 @@ end
 
 ❯ # current line
 ```
+
+## Known issue
+ - `abbr` has a chance to have no syntax color when expanded
