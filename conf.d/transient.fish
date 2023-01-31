@@ -3,27 +3,33 @@ if not type --query __fish_prompt
     functions --erase fish_prompt
 end
 
-function fish_prompt
-    set --function default_prompt (set_color 5FD700)"❯ "(set_color normal)
+function __default_transient_prompt
+    printf (set_color 5FD700)"❯ "(set_color normal)
+end
 
-    if test "$TRANSIENT" = 1
-        or test "$TRANSIENT" = 2
+function fish_prompt
+    _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT" = 0
+        function __raise_pipestatus
+            return $_transient_pipestatus
+        end
+        if type --query __fish_prompt
+            # reset command status to last status
+            __raise_pipestatus
+            __fish_prompt
+        else
+            __default_transient_prompt
+        end
+    else
         printf \e\[0J # clear from cursor to end of screen
         if type --query transient_prompt_func
             transient_prompt_func
         else
-            printf $default_prompt
+            __default_transient_prompt
         end
 
         if test "$TRANSIENT" = 2
             set --global TRANSIENT 0
             commandline --function repaint
-        end
-    else
-        if type --query __fish_prompt
-            __fish_prompt
-        else
-            printf $default_prompt
         end
     end
 end
