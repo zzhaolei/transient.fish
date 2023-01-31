@@ -1,5 +1,21 @@
 # Transient Prompt By Fish Shell
 
+## example
+```shell
+❯ ls -G
+conf.d  README.md
+❯ ls^C
+❯
+❯
+❯
+❯
+❯
+❯
+
+~/transient-prompt.fish main ───────────────────────────── 08:36:56 下午
+❯
+```
+
 ## install
 ```fish
 fisher install zzhaolei/transient-prompt.fish
