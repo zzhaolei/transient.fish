@@ -17,8 +17,7 @@ function ___default_transient_prompt
 end
 
 function ___reset_pipestatus
-    # Use the variables defined in the calling function. (_transient_pipestatus)
-    return $_transient_pipestatus
+    return $argv[1]
 end
 
 set --global TRANSIENT normal
@@ -27,7 +26,7 @@ set --global TRANSIENT_RIGHT normal
 function fish_prompt
     _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT" = normal
         if type --query __transient_fish_prompt
-            ___reset_pipestatus
+            ___reset_pipestatus $_transient_pipestatus
             __transient_fish_prompt
         else
             ___default_transient_prompt
@@ -55,7 +54,7 @@ function fish_right_prompt
 
     _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT_RIGHT" = normal
         if type --query __transient_fish_right_prompt
-            ___reset_pipestatus
+            ___reset_pipestatus $_transient_pipestatus
             __transient_fish_right_prompt
         end
     end
