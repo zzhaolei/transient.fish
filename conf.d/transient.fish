@@ -40,16 +40,14 @@ function fish_prompt
             ___default_transient_prompt
         end
 
-        if test "$TRANSIENT" = transient-repaint
-            set --global TRANSIENT normal
-            set --global TRANSIENT_RIGHT transient-repaint
-            commandline --function repaint
-        end
+        set --global TRANSIENT normal
+        set --global TRANSIENT_RIGHT transient
+        commandline --function repaint
     end
 end
 
 function fish_right_prompt
-    if test "$TRANSIENT_RIGHT" = transient-repaint
+    if test "$TRANSIENT_RIGHT" = transient
         set --global TRANSIENT_RIGHT normal
         commandline --function repaint
         return 0
@@ -70,22 +68,17 @@ function reset-transient --on-event fish_postexec
 end
 
 function transient_execute
-    if commandline --is-valid
-        set --global TRANSIENT transient
-        set --global TRANSIENT_RIGHT transient
-        commandline --function repaint
-    else if test "$(commandline -b)" = "" # fix empty enter
-        set --global TRANSIENT transient-repaint
-        set --global TRANSIENT_RIGHT transient
-        commandline --function repaint
-    else
+    set --global TRANSIENT transient
+    set --global TRANSIENT_RIGHT transient
+    if test "$(commandline -b)" != "" # fix empty enter
+        and commandline --paging-full-mode # Evaluates to true if the commandline is showing pager contents, such as tab completions and all lines are shown (no “<n> more rows” message).
         set --global TRANSIENT normal
     end
-    commandline --function execute
+    commandline --function repaint execute
 end
 
 function ctrl_c_transient_execute
-    set --global TRANSIENT transient-repaint
+    set --global TRANSIENT transient
     if test "$(commandline -b)" = ""
         commandline --function repaint execute
         return 0
