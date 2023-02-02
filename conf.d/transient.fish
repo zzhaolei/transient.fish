@@ -31,6 +31,7 @@ function fish_prompt
         else
             ___default_transient_prompt
         end
+        return 0
     else
         printf \e\[0J # clear from cursor to end of screen
         if type --query transient_prompt_func
@@ -38,11 +39,11 @@ function fish_prompt
         else
             ___default_transient_prompt
         end
-
-        set --global TRANSIENT normal
-        set --global TRANSIENT_RIGHT transient
-        commandline --function repaint
     end
+
+    set --global TRANSIENT normal
+    set --global TRANSIENT_RIGHT transient
+    commandline --function repaint
 end
 
 function fish_right_prompt
@@ -60,7 +61,6 @@ function fish_right_prompt
     end
 end
 
-# transience related functions
 function reset-transient --on-event fish_postexec
     set --global TRANSIENT normal
     set --global TRANSIENT_RIGHT normal
@@ -69,16 +69,18 @@ end
 function transient_execute
     set --global TRANSIENT transient
     set --global TRANSIENT_RIGHT transient
-    if test "$(commandline -b)" != "" # fix empty enter
+    set --local buffer "$(commandline --current-buffer)"
+
+    if test "$buffer" != "" # fix empty enter
         and commandline --paging-full-mode # Evaluates to true if the commandline is showing pager contents, such as tab completions and all lines are shown (no “<n> more rows” message).
         set --global TRANSIENT normal
     end
     commandline --function repaint execute
 end
 
-function ctrl_c_transient_execute
+function transient_ctrl_c_execute
     set --global TRANSIENT transient
-    if test "$(commandline -b)" = ""
+    if test "$(commandline --current-buffer)" = ""
         commandline --function repaint execute
         return 0
     end
@@ -86,5 +88,5 @@ function ctrl_c_transient_execute
     commandline --function repaint cancel-commandline kill-inner-line repaint-mode
 end
 
-bind -M insert \r transient_execute
-bind -M insert \cc ctrl_c_transient_execute
+bind --mode insert \r transient_execute
+bind --mode insert \cc transient_ctrl_c_execute
