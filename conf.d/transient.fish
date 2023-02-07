@@ -77,7 +77,6 @@ if type --query fish_right_prompt
 
     function fish_right_prompt
         if test "$TRANSIENT_RIGHT" = transient
-            set --global TRANSIENT_RIGHT normal
             return 0
         end
 
@@ -104,7 +103,7 @@ function transient_execute
         and commandline --paging-full-mode # Evaluates to true if the commandline is showing pager contents, such as tab completions and all lines are shown (no “<n> more rows” message).
         set --global TRANSIENT normal
     end
-    commandline --function repaint execute
+    commandline --function expand-abbr repaint execute
 end
 
 function transient_ctrl_c_execute
@@ -117,6 +116,7 @@ function transient_ctrl_c_execute
     commandline --function repaint cancel-commandline kill-inner-line repaint-mode repaint
 end
 
-bind \r transient_execute
+bind --mode default \r transient_execute
 bind --mode insert \r transient_execute
+bind --mode default \cc transient_ctrl_c_execute
 bind --mode insert \cc transient_ctrl_c_execute

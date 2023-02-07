@@ -65,4 +65,4 @@ end
 ```
 
 ## Known issue
- - `abbr` has a chance to have no syntax color when expanded
+ - [x] `abbr` has a chance to have no syntax color when expanded
