@@ -96,13 +96,12 @@ function reset-transient --on-event fish_postexec
 end
 
 function transient_execute
-    set --global TRANSIENT transient
-    set --local buffer "$(commandline --current-buffer)"
-
-    if test "$buffer" != "" # fix empty enter
+    if test "$(commandline --current-buffer)" != "" # fix empty enter
         and commandline --paging-full-mode # Evaluates to true if the commandline is showing pager contents, such as tab completions and all lines are shown (no “<n> more rows” message).
-        set --global TRANSIENT normal
+        commandline -f execute
+        return 0
     end
+    set --global TRANSIENT transient
     commandline --function expand-abbr repaint execute
 end
 
