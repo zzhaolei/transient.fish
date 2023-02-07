@@ -22,7 +22,11 @@ fisher install zzhaolei/transient-prompt.fish
 ```
 
 ## Configuration
+
+### transient prompt
 You can set the `transient_prompt_func` function, customize the `transient prompt`.
+
+You can adjust the color of the prompt using `transient_prompt_pipestatus` or `transient_prompt_status`
 
 Example:
 
@@ -42,7 +46,11 @@ Example:
 `after`:
 ```
 function transient_prompt_func
-    printf "❯❯❯ "
+    if test $transient_prompt_pipestatus[1] -eq 0
+        printf (set_color green)"❯❯❯ "
+    else
+        printf (set_color red)"❯❯❯ "
+    end
 end
 
 ❯❯❯ echo 1

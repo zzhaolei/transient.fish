@@ -2,11 +2,15 @@ set --global TRANSIENT normal
 set --global TRANSIENT_RIGHT normal
 
 function __default_transient_prompt_func
-    printf (set_color 5FD700)"❯ "(set_color normal)
+    set --local color 5FD700
+    if test $transient_prompt_pipestatus[1] -ne 0
+        set color red
+    end
+    printf (set_color $color)"❯ "(set_color normal)
 end
 
 function __reset_pipestatus
-    return $argv[1]
+    return $transient_prompt_pipestatus[1]
 end
 
 # First Render
@@ -21,11 +25,12 @@ if type --query fish_mode_prompt
             return 0
         end
 
-        _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT" = normal
-            if type --query __transient_fish_mode_prompt
-                __reset_pipestatus $_transient_pipestatus
-                __transient_fish_mode_prompt
-            end
+        set --global transient_prompt_pipestatus $pipestatus
+        set --global transient_prompt_status $status
+        if test "$TRANSIENT" = normal
+            and type --query __transient_fish_mode_prompt
+            __reset_pipestatus
+            __transient_fish_mode_prompt
         end
     end
 end
@@ -38,11 +43,14 @@ if type --query fish_prompt
     end
 
     function fish_prompt
-        _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT" = normal
+        set --global transient_prompt_pipestatus $pipestatus
+        set --global transient_prompt_status $status
+        if test "$TRANSIENT" = normal
             if type --query __transient_fish_prompt
-                __reset_pipestatus $_transient_pipestatus
+                __reset_pipestatus
                 __transient_fish_prompt
             else
+                printf 1
                 __default_transient_prompt_func
             end
             return 0
@@ -73,11 +81,12 @@ if type --query fish_right_prompt
             return 0
         end
 
-        _transient_pipestatus=$pipestatus _transient_status=$status if test "$TRANSIENT_RIGHT" = normal
-            if type --query __transient_fish_right_prompt
-                __reset_pipestatus $_transient_pipestatus
-                __transient_fish_right_prompt
-            end
+        set --global transient_prompt_pipestatus $pipestatus
+        set --global transient_prompt_status $status
+        if test "$TRANSIENT_RIGHT" = normal
+            and type --query __transient_fish_right_prompt
+            __reset_pipestatus
+            __transient_fish_right_prompt
         end
     end
 end
