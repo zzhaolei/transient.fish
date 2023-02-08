@@ -12,21 +12,21 @@ conf.d  README.md
 ❯
 ❯
 
-~/transient-prompt.fish main ───────────────────────────── 08:36:56 下午
+~/transient.fish main ───────────────────────────── 08:36:56 下午
 ❯
 ```
 
 ## Install
 ```fish
-fisher install zzhaolei/transient-prompt.fish
+fisher install zzhaolei/transient.fish
 ```
 
 ## Configuration
 
-### transient prompt
-You can set the `transient_prompt_func` function, customize the `transient prompt`.
+### transient character
+You can set the `transient_character_func` function, customize the `transient character`.
 
-You can adjust the color of the prompt using `transient_prompt_pipestatus` or `transient_prompt_status`
+You can adjust the color of the prompt using `transient_pipestatus` or `transient_status`
 
 Example:
 
@@ -45,8 +45,8 @@ Example:
 
 `after`:
 ```
-function transient_prompt_func
-    if test $transient_prompt_pipestatus[1] -eq 0
+function transient_character_func
+    if test $transient_character_pipestatus[1] -eq 0
         printf (set_color green)"❯❯❯ "
     else
         printf (set_color red)"❯❯❯ "
