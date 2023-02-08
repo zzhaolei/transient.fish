@@ -21,12 +21,6 @@ if type --query fish_mode_prompt
     end
 
     function fish_mode_prompt
-        if test "$TRANSIENT" = transient
-            return 0
-        end
-
-        set --global transient_prompt_pipestatus $pipestatus
-        set --global transient_prompt_status $status
         if test "$TRANSIENT" = normal
             and type --query __transient_fish_mode_prompt
             __reset_pipestatus
@@ -45,12 +39,12 @@ if type --query fish_prompt
     function fish_prompt
         set --global transient_prompt_pipestatus $pipestatus
         set --global transient_prompt_status $status
+
         if test "$TRANSIENT" = normal
             if type --query __transient_fish_prompt
                 __reset_pipestatus
                 __transient_fish_prompt
             else
-                printf 1
                 __default_transient_prompt_func
             end
             return 0
@@ -76,28 +70,22 @@ if type --query fish_right_prompt
     end
 
     function fish_right_prompt
-        if test "$TRANSIENT_RIGHT" = transient
-            return 0
-        end
-
-        set --global transient_prompt_pipestatus $pipestatus
-        set --global transient_prompt_status $status
         if test "$TRANSIENT_RIGHT" = normal
             and type --query __transient_fish_right_prompt
             __reset_pipestatus
             __transient_fish_right_prompt
         end
+        set --global TRANSIENT_RIGHT normal
     end
 end
 
-function reset-transient --on-event fish_postexec
-    set --global TRANSIENT normal
-    set --global TRANSIENT_RIGHT normal
-end
-
 function transient_execute
-    if test "$(commandline --current-buffer)" != "" # fix empty enter
-        and commandline --paging-full-mode # Evaluates to true if the commandline is showing pager contents, such as tab completions and all lines are shown (no “<n> more rows” message).
+    commandline --is-valid
+    set --local _valid $status
+
+    # The empty commandline is an error, not incomplete
+    if test $_valid -eq 2
+        or commandline --paging-full-mode
         commandline -f execute
         return 0
     end
