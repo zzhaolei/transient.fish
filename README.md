@@ -21,4 +21,3 @@ Example:
 ![After](./images/after.png)
 
 ## Known Issue
- - [ ] unable to pass `pipestatus` to `fish_prompt` correctly

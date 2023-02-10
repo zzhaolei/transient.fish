@@ -2,15 +2,11 @@ set --global TRANSIENT normal
 set --global TRANSIENT_RIGHT normal
 
 function __transient_character_func
-    set --local color 5FD700
-    if test $transient_pipestatus[1] -ne 0
+    set --local color green
+    if test $transient_pipestatus[-1] -ne 0
         set color red
     end
     printf (set_color $color)"❯ "(set_color normal)
-end
-
-function __transient_reset_status
-    return $transient_pipestatus[-1]
 end
 
 # First Render
@@ -23,7 +19,6 @@ if type --query fish_mode_prompt
     function fish_mode_prompt
         if test "$TRANSIENT" = normal
             and type --query __transient_fish_mode_prompt
-            __transient_reset_status
             __transient_fish_mode_prompt
         end
     end
@@ -34,6 +29,9 @@ if type --query fish_prompt
     if not type --query __transient_fish_prompt
         functions --copy fish_prompt __transient_fish_prompt
         functions --erase fish_prompt
+
+        # use us transient_[pipe]status
+        functions -v __transient_fish_prompt | string replace '$pipestatus' '$transient_pipestatus' | string replace '$status' '$transient_status' | source
     end
 
     function fish_prompt
@@ -42,7 +40,6 @@ if type --query fish_prompt
 
         if test "$TRANSIENT" = normal
             if type --query __transient_fish_prompt
-                __transient_reset_status
                 __transient_fish_prompt
             else
                 __transient_character_func
@@ -72,7 +69,6 @@ if type --query fish_right_prompt
     function fish_right_prompt
         if test "$TRANSIENT_RIGHT" = normal
             and type --query __transient_fish_right_prompt
-            __transient_reset_status
             __transient_fish_right_prompt
         end
         set --global TRANSIENT_RIGHT normal
@@ -117,6 +113,9 @@ function __transient_uninstall --on-event transient_uninstall
     if type --query __transient_fish_prompt
         functions --erase fish_prompt
         functions --copy __transient_fish_prompt fish_prompt
+
+        # use $[pipe]status replace $transient_[pipe]status
+        functions -v fish_prompt | string replace '$transient_pipestatus' '$pipestatus' | string replace '$transient_status' '$status' | source
     end
 
     if type --query __transient_fish_right_prompt
