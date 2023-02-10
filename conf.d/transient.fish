@@ -30,7 +30,7 @@ if type --query fish_prompt
         functions --copy fish_prompt __transient_fish_prompt
         functions --erase fish_prompt
 
-        # use us transient_[pipe]status
+        # replace $[pipe]status to $transient_[pipe]status
         functions -v __transient_fish_prompt | string replace '$pipestatus' '$transient_pipestatus' | string replace '$status' '$transient_status' | source
     end
 
@@ -114,7 +114,7 @@ function __transient_uninstall --on-event transient_uninstall
         functions --erase fish_prompt
         functions --copy __transient_fish_prompt fish_prompt
 
-        # use $[pipe]status replace $transient_[pipe]status
+        # replace $transient_[pipe]status to $[pipe]status
         functions -v fish_prompt | string replace '$transient_pipestatus' '$pipestatus' | string replace '$transient_status' '$status' | source
     end
 
