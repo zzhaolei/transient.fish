@@ -1,4 +1,12 @@
-# Transient Prompt By Fish Shell
+# Transient Prompt
+
+When we have a gorgeous terminal prompt, the terminal will be flooded with these prompts, which will obviously affect our attention to more critical data, such as the execution results of git commands.
+
+The goal of this plugin is to reduce the distraction of these prompts.
+
+This will also make it easier to scroll back and copy-paste a series of commands from the terminal.
+
+![Transient Prompt](./media/transient.gif)
 
 ## Install
 ```fish
@@ -7,22 +15,16 @@ fisher install zzhaolei/transient.fish
 
 ## Configuration
 
-You can set the `transient_character_func` function, customize the `transient character`.
+Using the `transient_character_func` function, you can set any prompt symbol you like.
 
-You can adjust the color of the prompt using `transient_pipestatus` or `transient_status`.
-
-By default, this plugin will replace `$pipestatus` and `$status` in `fish_prompt` with `$transient_pipestatus` and `$transient_status`
+In the transient_character_func function, you can do what you want with `transient_pipestatus` or `transient_status`
 
 Example:
 
-- before
-![Before](./images/before.png)
-
-- after
-![After](./images/after.png)
+![transient_character_func](./media/transient_character_func.png)
 
 ## Known Issues
- - When a time-consuming task is executed, press the `Enter` key, the transient prompt does not work properly
+ - When a time-consuming task is executed(such as sleep), press the `Enter` key, the transient prompt does not work properly
 
-## References
+## Inspiration
  - [powerlevel10k#transient-prompt](https://github.com/romkatv/powerlevel10k#transient-prompt)
