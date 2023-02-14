@@ -36,5 +36,5 @@ function __fish_prompt --description "make fish prompt transient"
         commandline --function repaint
     end
 
-    set --global __fish_prompt_md5 (functions -v fish_prompt | md5)
+    # set --global __fish_prompt_md5 (functions -v fish_prompt | md5)
 end

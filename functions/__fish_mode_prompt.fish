@@ -15,5 +15,5 @@ function __fish_mode_prompt
         end
     end
 
-    set --global __fish_mode_prompt_md5 (functions -v fish_mode_prompt | md5)
+    # set --global __fish_mode_prompt_md5 (functions -v fish_mode_prompt | md5)
 end

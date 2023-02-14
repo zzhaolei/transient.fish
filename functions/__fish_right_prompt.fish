@@ -16,5 +16,5 @@ function __fish_right_prompt
         set --global TRANSIENT_RIGHT normal
     end
 
-    set --global __fish_right_prompt_md5 (functions -v fish_right_prompt | md5)
+    # set --global __fish_right_prompt_md5 (functions -v fish_right_prompt | md5)
 end

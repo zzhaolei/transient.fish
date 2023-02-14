@@ -9,22 +9,22 @@ function __transient_character_func
     printf (set_color $color)"❯ "(set_color normal)
 end
 
-function __transient_listen --on-event fish_prompt
-    if test "$__fish_mode_prompt_md5" != "$(functions -v fish_mode_prompt | md5)"
-        functions --erase __transient_fish_mode_prompt
-        __fish_mode_prompt
-    end
+# function __transient_listen --on-event fish_prompt
+#     if test "$__fish_mode_prompt_md5" != "$(functions -v fish_mode_prompt | md5)"
+#         functions --erase __transient_fish_mode_prompt
+#         __fish_mode_prompt
+#     end
 
-    if test "$__fish_prompt_md5" != "$(functions -v fish_prompt | md5)"
-        functions --erase __transient_fish_prompt
-        __fish_prompt
-    end
+#     if test "$__fish_prompt_md5" != "$(functions -v fish_prompt | md5)"
+#         functions --erase __transient_fish_prompt
+#         __fish_prompt
+#     end
 
-    if test "$__fish_right_prompt_md5" != "$(functions -v fish_right_prompt | md5)"
-        functions --erase __transient_fish_right_prompt
-        __fish_right_prompt
-    end
-end
+#     if test "$__fish_right_prompt_md5" != "$(functions -v fish_right_prompt | md5)"
+#         functions --erase __transient_fish_right_prompt
+#         __fish_right_prompt
+#     end
+# end
 
 __transient # install
 
