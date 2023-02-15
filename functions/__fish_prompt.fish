@@ -12,6 +12,8 @@ function __fish_prompt --description "make fish prompt transient"
     end
 
     function fish_prompt
+        # It's a flag, it's important
+        # @__TRANSIENT__@
         set --global transient_pipestatus $pipestatus
         set --global transient_status $status
 
@@ -35,6 +37,4 @@ function __fish_prompt --description "make fish prompt transient"
         set --global TRANSIENT_RIGHT transient
         commandline --function repaint
     end
-
-    # set --global __fish_prompt_md5 (functions -v fish_prompt | md5)
 end

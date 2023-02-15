@@ -9,12 +9,12 @@ function __fish_right_prompt
     end
 
     function fish_right_prompt
+        # It's a flag, it's important
+        # @__TRANSIENT__@
         if test "$TRANSIENT_RIGHT" = normal
             and type --query __transient_fish_right_prompt
             __transient_fish_right_prompt
         end
         set --global TRANSIENT_RIGHT normal
     end
-
-    # set --global __fish_right_prompt_md5 (functions -v fish_right_prompt | md5)
 end
