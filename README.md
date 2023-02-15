@@ -14,14 +14,11 @@ fisher install zzhaolei/transient.fish
 ```
 
 ## Configuration
+ - To customize left prompt, define a new function called `transient_prompt_func`. In this transient_prompt_func function, you can do what you want with `transient_pipestatus` or `transient_status`. For example:
+![transient_prompt_func](./media/transient_prompt_func.png)
 
-Using the `transient_character_func` function, you can set any prompt symbol you like.
-
-In the transient_character_func function, you can do what you want with `transient_pipestatus` or `transient_status`
-
-Example:
-
-![transient_character_func](./media/transient_character_func.png)
+ - To customize right prompt, define a new function called `transient_rprompt_func`. For Example:
+ ![transient_prompt_func](./media/transient_rprompt_func.png)
 
 ## Known Issues
  - When a time-consuming task is executed(such as sleep), press the `Enter` key, the transient prompt does not work properly

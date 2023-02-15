@@ -1,7 +1,7 @@
 set --global TRANSIENT normal
 set --global TRANSIENT_RIGHT normal
 
-function __transient_character_func
+function __transient_prompt_func
     set --local color green
     if test $transient_pipestatus[-1] -ne 0
         set color red
