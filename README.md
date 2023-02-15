@@ -14,14 +14,15 @@ fisher install zzhaolei/transient.fish
 ```
 
 ## Configuration
+### transient_prompt_func
 
-Using the `transient_character_func` function, you can set any prompt symbol you like.
+Using the `transient_prompt_func` function, you can set any prompt symbol you like.
 
-In the transient_character_func function, you can do what you want with `transient_pipestatus` or `transient_status`
+In the transient_prompt_func function, you can do what you want with `transient_pipestatus` or `transient_status`
 
 Example:
 
-![transient_character_func](./media/transient_character_func.png)
+![transient_prompt_func](./media/transient_prompt_func.png)
 
 ## Known Issues
  - When a time-consuming task is executed(such as sleep), press the `Enter` key, the transient prompt does not work properly
