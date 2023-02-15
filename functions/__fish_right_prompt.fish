@@ -14,6 +14,10 @@ function __fish_right_prompt
         if test "$TRANSIENT_RIGHT" = normal
             and type --query __transient_fish_right_prompt
             __transient_fish_right_prompt
+        else
+            if type --query transient_rprompt_func
+                transient_rprompt_func
+            end
         end
         set --global TRANSIENT_RIGHT normal
     end
