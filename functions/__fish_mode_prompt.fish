@@ -9,11 +9,11 @@ function __fish_mode_prompt
     end
 
     function fish_mode_prompt
+        # It's a flag, it's important
+        # @__TRANSIENT__@
         if test "$TRANSIENT" = normal
             and type --query __transient_fish_mode_prompt
             __transient_fish_mode_prompt
         end
     end
-
-    # set --global __fish_mode_prompt_md5 (functions -v fish_mode_prompt | md5)
 end
