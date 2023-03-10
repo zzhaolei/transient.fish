@@ -14,7 +14,7 @@ function __transient
             return 0
         end
         set --global TRANSIENT transient
-        commandline --function expand-abbr repaint execute
+        commandline --function expand-abbr suppress-autosuggestion repaint execute
     end
 
     function __transient_ctrl_c_execute
