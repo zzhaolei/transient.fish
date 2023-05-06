@@ -1,8 +1,4 @@
 function __transient
-    __fish_mode_prompt # First Render
-    __fish_prompt # Second Render
-    __fish_right_prompt # Third Render
-
     function __transient_execute
         commandline --is-valid
         set --local _valid $status

@@ -1,15 +1,17 @@
 function __fish_prompt --description "make fish prompt transient"
     if not type --query fish_prompt
+        or test -n "$(functions -v fish_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
         return 0
     end
 
-    if not type --query __transient_fish_prompt
-        functions --copy fish_prompt __transient_fish_prompt
-        functions --erase fish_prompt
-
-        # replace $[pipe]status to $transient_[pipe]status
-        functions -v __transient_fish_prompt | string replace '$pipestatus' '$transient_pipestatus' | string replace '$status' '$transient_status' | source
+    # fix enable virtualenv
+    if type --query _old_fish_prompt
+        functions --erase _old_fish_prompt && functions --copy __transient_old_fish_prompt _old_fish_prompt
     end
+    functions --erase __transient_old_fish_prompt 2>/dev/null && functions --copy fish_prompt __transient_old_fish_prompt
+
+    # replace $[pipe]status to $transient_[pipe]status
+    functions -v __transient_old_fish_prompt | string replace '$pipestatus' '$transient_pipestatus' | string replace '$status' '$transient_status' | source
 
     function fish_prompt
         # It's a flag, it's important
@@ -18,11 +20,7 @@ function __fish_prompt --description "make fish prompt transient"
         set --global transient_status $status
 
         if test "$TRANSIENT" = normal
-            if type --query __transient_fish_prompt
-                __transient_fish_prompt
-            else
-                __transient_prompt_func
-            end
+            __transient_old_fish_prompt
             return 0
         end
 

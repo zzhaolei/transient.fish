@@ -1,19 +1,16 @@
 function __fish_right_prompt
     if not type --query fish_right_prompt
+        or test -n "$(functions -v fish_right_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
         return 0
     end
 
-    if not type --query __transient_fish_right_prompt
-        functions --copy fish_right_prompt __transient_fish_right_prompt
-        functions --erase fish_right_prompt
-    end
+    functions --erase __transient_old_fish_right_prompt 2>/dev/null && functions --copy fish_right_prompt __transient_old_fish_right_prompt
 
     function fish_right_prompt
         # It's a flag, it's important
         # @__TRANSIENT__@
         if test "$TRANSIENT_RIGHT" = normal
-            and type --query __transient_fish_right_prompt
-            __transient_fish_right_prompt
+            __transient_old_fish_right_prompt
         else
             if type --query transient_rprompt_func
                 transient_rprompt_func
