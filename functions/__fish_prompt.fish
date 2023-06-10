@@ -11,7 +11,7 @@ function __fish_prompt --description "make fish prompt transient"
     functions --erase __transient_old_fish_prompt 2>/dev/null && functions --copy fish_prompt __transient_old_fish_prompt
 
     # replace $[pipe]status to $transient_[pipe]status
-    functions -v __transient_old_fish_prompt | string replace '$pipestatus' '$transient_pipestatus' | string replace '$status' '$transient_status' | source
+    functions -v __transient_old_fish_prompt | string replace -r '\$status([\s+])' '\$transient_status$1' | string replace -r '\$pipestatus([\s+])' '\$transient_pipestatus$1' | source
 
     function fish_prompt
         # It's a flag, it's important
