@@ -3,7 +3,7 @@ function __transient_prompt_func
     if test $transient_pipestatus[-1] -ne 0
         set color red
     end
-    printf (set_color $color)"❯ "(set_color normal)
+    echo -en (set_color $color)"❯ "(set_color normal)
 end
 
 # Check if these functions have been transient

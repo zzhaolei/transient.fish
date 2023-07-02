@@ -24,11 +24,11 @@ function __fish_prompt --description "make fish prompt transient"
             return 0
         end
 
-        printf \e\[0J # clear from cursor to end of screen
+        echo -en \e\[0J # clear from cursor to end of screen
         if type --query transient_prompt_func
             transient_prompt_func
         else if type --query transient_character_func
-            printf (set_color red)'[deprecated] '
+            echo -en (set_color red)'[deprecated] '
             transient_character_func
         else
             __transient_prompt_func
