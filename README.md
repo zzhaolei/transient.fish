@@ -1,5 +1,5 @@
 # Transient Prompt
-> Reduce the noise of irrelevant information.
+> Reduce noise in the terminal.
 
 ## Installation
 Install with [Fisher](https://github.com/jorgebucaran/fisher):
@@ -11,7 +11,7 @@ fisher install zzhaolei/transient.fish
 
 When we have fancy two-line prompts, the window will be flooded with these prompts, which of course distracts us from concentration and floods the terminal with irrelevant data.
 
-This plugin goal is to reduce the noise of irrelevant information. This will also make it easier to scroll back and copy-paste a series of commands from the terminal.
+This plugin goal is to reduce noise in the terminal. This will also make it easier to scroll back and copy-paste a series of commands from the terminal.
 
 **Tip**: If you enable transient prompt, take advantage of two-line prompt. You'll get the benefit of extra space for typing commands without the usual drawback of reduced scrollback density. Sparse prompt (with an empty line before prompt) also works great in combination with transient prompt.
 
