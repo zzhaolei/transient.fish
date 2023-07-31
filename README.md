@@ -35,8 +35,5 @@ Define the `transient_rprompt_func` function. In this function, you can do what 
 Example:
  ![transient_prompt_func](./media/transient_rprompt_func.png)
 
-## Known Issues
- - When executing time-consuming commands, if you repeatedly press the enter key, the transient prompt cannot prompt properly.
-
 ## Inspiration
  - [powerlevel10k#transient-prompt](https://github.com/romkatv/powerlevel10k#transient-prompt)

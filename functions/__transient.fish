@@ -23,8 +23,15 @@ function __transient
         commandline --function repaint cancel-commandline kill-inner-line repaint-mode repaint
     end
 
+    # Key: enter
     bind --user --mode default \r __transient_execute
     bind --user --mode insert \r __transient_execute
+
+    # Key: new line
+    bind --user --mode default \cj __transient_execute
+    bind --user --mode insert \cj __transient_execute
+
+    # Key: Ctrl-C
     bind --user --mode default \cc __transient_ctrl_c_execute
     bind --user --mode insert \cc __transient_ctrl_c_execute
 end
