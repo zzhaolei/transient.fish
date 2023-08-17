@@ -10,10 +10,14 @@ end
 #     __fish_mode_prompt:   First Render
 #     __fish_prompt:        Second Render
 #     __fish_right_prompt:  Third Render
-function __transient_check_flag --on-event fish_prompt
+function __transient_event_emit
     __fish_mode_prompt
     __fish_prompt
     __fish_right_prompt
+end
+
+function __transient_check_by_event --on-event fish_prompt --on-variable VIRTUAL_ENV
+    __transient_event_emit
 end
 
 __transient # install
