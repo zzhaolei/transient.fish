@@ -1,10 +1,7 @@
 function __transient
     function __transient_execute
         commandline --is-valid
-        set --local _valid $status
-
-        # The empty commandline is an error, not incomplete
-        if test $_valid -eq 2
+        if test $status -eq 2 # The empty commandline is an error, not incomplete
             or commandline --paging-full-mode
             commandline -f execute
             return 0
