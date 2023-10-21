@@ -1,6 +1,5 @@
 function __fish_mode_prompt
-    if not type -q fish_mode_prompt
-        or test -n "$(functions -v fish_mode_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
+    if test -n "$(functions -v fish_mode_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
         return 0
     end
 
