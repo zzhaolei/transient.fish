@@ -1,5 +1,6 @@
 function __fish_right_prompt
-    if test -n "$(functions -v fish_right_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
+    if not type -q fish_right_prompt
+        or test -n "$(functions -v fish_right_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
         return 0
     end
     if type --query fish_right_prompt
