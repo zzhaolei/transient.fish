@@ -1,23 +1,11 @@
-function __transient_prompt_func
-    set --local color green
-    if test $transient_pipestatus[-1] -ne 0
-        set color red
-    end
-    echo -en (set_color $color)"❯ "(set_color normal)
-end
-
 # Check if these functions have been transient
 #     __fish_mode_prompt:   First Render
 #     __fish_prompt:        Second Render
 #     __fish_right_prompt:  Third Render
-function __transient_event_emit
+function __transient_event_emit --on-event fish_prompt --on-variable VIRTUAL_ENV
     __fish_mode_prompt
     __fish_prompt
     __fish_right_prompt
-end
-
-function __transient_check_by_event --on-event fish_prompt --on-variable VIRTUAL_ENV
-    __transient_event_emit
 end
 
 __transient # install

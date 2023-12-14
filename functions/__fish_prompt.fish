@@ -1,3 +1,11 @@
+function __transient_prompt_func
+    set --local color green
+    if test $transient_pipestatus[-1] -ne 0
+        set color red
+    end
+    echo -en (set_color $color)"❯ "(set_color normal)
+end
+
 function __fish_prompt --description "make fish prompt transient"
     if not type -q fish_prompt
         or test -n "$(functions -v fish_prompt | string match --regex '^\s+# @__TRANSIENT__@')"
@@ -27,9 +35,6 @@ function __fish_prompt --description "make fish prompt transient"
         echo -en \e\[0J # clear from cursor to end of screen
         if type --query transient_prompt_func
             transient_prompt_func
-        else if type --query transient_character_func
-            echo -en (set_color red)'[deprecated] '
-            transient_character_func
         else
             __transient_prompt_func
         end
