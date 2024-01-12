@@ -10,7 +10,7 @@ Transient Prompt
   * [Inspiration](#inspiration)
 
 # Installation
-Install with [Fisher](https://github.com/jorgebucaran/fisher):
+Installation with [fisher](https://github.com/jorgebucaran/fisher):
 ```fish
 fisher install zzhaolei/transient.fish
 ```
