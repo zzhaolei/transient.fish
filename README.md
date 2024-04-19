@@ -2,12 +2,13 @@ Transient Prompt
 ===
 ![GitHub Repo stars](https://img.shields.io/github/stars/zzhaolei/transient.fish)
 
-  * [Installation](#installation)
-  * [Features](#features)
-  * [Configuration](#configuration)
-     * [transient_prompt_func](#transient_prompt_func)
-     * [transient_rprompt_func](#transient_rprompt_func)
-  * [Inspiration](#inspiration)
+- [Transient Prompt](#transient-prompt)
+- [Installation](#installation)
+- [Features](#features)
+- [Configuration](#configuration)
+  - [transient\_prompt\_func](#transient_prompt_func)
+  - [transient\_rprompt\_func](#transient_rprompt_func)
+- [Inspiration](#inspiration)
 
 # Installation
 Installation with [fisher](https://github.com/jorgebucaran/fisher):
@@ -18,7 +19,10 @@ fisher install zzhaolei/transient.fish
 # Features
 A picture is worth a thousand words.
 
-![Transient Prompt](./media/transient.gif)
+
+https://github.com/zzhaolei/transient.fish/assets/17561793/bb70cae6-34cb-4585-aebd-f2b08d3ef939
+
+<!-- ![Transient Prompt](./media/transient.mp4) -->
 
 **Tip**: If you enable transient prompt, take advantage of two-line prompt. You'll get the benefit of extra space for typing commands without the usual drawback of reduced scrollback density. Sparse prompt (with an empty line before prompt) also works great in combination with transient prompt.
 
