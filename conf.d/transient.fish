@@ -8,8 +8,6 @@ function __transient_event_emit --on-event fish_prompt --on-variable VIRTUAL_ENV
     __fish_right_prompt
 end
 
-__transient # install
-
 function __transient_uninstall --on-event transient_uninstall
     if type --query __transient_old_fish_mode_prompt
         functions --erase fish_mode_prompt
@@ -35,3 +33,46 @@ function __transient_uninstall --on-event transient_uninstall
     set --names | string replace --ignore-case --filter --regex -- '(^transient.*)' 'set -e $1' | source
     set --names | string replace --ignore-case --filter --regex -- '(^__fish_.*_md5$)' 'set -e $1' | source
 end
+
+function __transient_execute
+    # --is-valid:
+    #     Returns true when the commandline is syntactically valid and complete.
+    #     If it is, it would be executed when the execute bind function is called. If the commandline is incomplete, return 2, if erroneus, return 1.
+    #
+    #     - 0: valid and complete
+    #     - 1: handle type "\[enter]"
+    #     - 2: The empty commandline is an error, not incomplete
+    commandline --is-valid
+    set -l valid $status
+    if test $valid -eq 1
+        and test (string match -r '.*\\\$' -- (commandline --current-buffer)) # check like "ls \"
+        or test $valid -eq 2
+        or commandline --paging-full-mode
+        commandline -f execute
+        return 0
+    end
+    set --global TRANSIENT transient
+    commandline --function expand-abbr suppress-autosuggestion repaint execute
+end
+
+function __transient_ctrl_c_execute
+    set --global TRANSIENT transient
+    if test "$(commandline --current-buffer)" = ""
+        commandline --function repaint execute
+        return 0
+    end
+
+    commandline --function repaint cancel-commandline kill-inner-line repaint-mode repaint
+end
+
+# Key: enter
+bind --user --mode default \r __transient_execute
+bind --user --mode insert \r __transient_execute
+
+# Key: new line
+bind --user --mode default \cj __transient_execute
+bind --user --mode insert \cj __transient_execute
+
+# Key: Ctrl-C
+bind --user --mode default \cc __transient_ctrl_c_execute
+bind --user --mode insert \cc __transient_ctrl_c_execute
