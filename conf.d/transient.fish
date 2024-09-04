@@ -42,17 +42,12 @@ function __transient_execute
     #     - 0: valid and complete
     #     - 1: handle type "\[enter]"
     #     - 2: The empty commandline is an error, not incomplete
-    commandline --is-valid
-    set -l valid $status
-    if test $valid -eq 1
-        and test (string match -r '.*\\\$' -- (commandline --current-buffer)) # check like "ls \"
-        or test $valid -eq 2
-        or commandline --paging-full-mode
-        commandline -f execute
+    if commandline --is-valid || test -z "$(commandline)" && not commandline --paging-mode
+        set --global TRANSIENT transient
+        commandline --function expand-abbr suppress-autosuggestion repaint execute
         return 0
     end
-    set --global TRANSIENT transient
-    commandline --function expand-abbr suppress-autosuggestion repaint execute
+    commandline -f execute
 end
 
 function __transient_ctrl_c_execute
