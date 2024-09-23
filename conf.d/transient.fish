@@ -53,7 +53,6 @@ end
 function __transient_ctrl_c_execute
     set --global TRANSIENT transient
     if test "$(commandline --current-buffer)" = ""
-        commandline --function repaint execute
         return 0
     end
 
