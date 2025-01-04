@@ -1,7 +1,7 @@
 # Check if these functions have been transient
-#     __fish_mode_prompt:   First Render
+#     __fish_mode_prompt:   First  Render
 #     __fish_prompt:        Second Render
-#     __fish_right_prompt:  Third Render
+#     __fish_right_prompt:  Third  Render
 function __transient_event_emit --on-event fish_prompt --on-variable VIRTUAL_ENV
     __fish_mode_prompt
     __fish_prompt
@@ -35,24 +35,25 @@ function __transient_uninstall --on-event transient_uninstall
 end
 
 function __transient_execute
-    # --is-valid:
-    #     Returns true when the commandline is syntactically valid and complete.
-    #     If it is, it would be executed when the execute bind function is called. If the commandline is incomplete, return 2, if erroneus, return 1.
-    #
-    #     - 0: valid and complete
-    #     - 1: handle type "\[enter]"
-    #     - 2: The empty commandline is an error, not incomplete
-    if commandline --is-valid || test -z "$(commandline)" && not commandline --paging-mode
+    commandline --function expand-abbr suppress-autosuggestion
+    if commandline --is-valid || test -z "$(commandline)"
+        if commandline --paging-mode && test -n "$(commandline)"
+            commandline -f accept-autosuggestion
+            return 0
+        end
+
         set --global TRANSIENT transient
-        commandline --function expand-abbr suppress-autosuggestion repaint execute
+        commandline --function repaint execute
         return 0
     end
+
     commandline -f execute
 end
 
 function __transient_ctrl_c_execute
     set --global TRANSIENT transient
     if test "$(commandline --current-buffer)" = ""
+        commandline --function cancel-commandline
         return 0
     end
 
