@@ -59,6 +59,14 @@ function __transient_ctrl_c_execute
     commandline --function repaint cancel-commandline kill-inner-line repaint-mode repaint
 end
 
+function __transient_ctrl_d_execute
+    if test "$(commandline --current-buffer)" != ""
+        return 0
+    end
+    set --global TRANSIENT transient
+    commandline --function repaint delete-or-exit
+end
+
 # Key: enter
 bind --user --mode default \r __transient_execute
 bind --user --mode insert \r __transient_execute
@@ -66,6 +74,10 @@ bind --user --mode insert \r __transient_execute
 # Key: new line
 bind --user --mode default \cj __transient_execute
 bind --user --mode insert \cj __transient_execute
+
+# Key: Ctrl-D
+bind --user --mode default \cd __transient_ctrl_d_execute
+bind --user --mode insert \cd __transient_ctrl_d_execute
 
 # Key: Ctrl-C
 bind --user --mode default \cc __transient_ctrl_c_execute
