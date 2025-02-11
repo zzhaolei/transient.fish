@@ -65,7 +65,7 @@ function __transient_ctrl_d_execute
         return 0
     end
     set --global TRANSIENT transient
-    commandline --function repaint delete-or-exit
+    commandline --function repaint exit
 end
 
 # Key: enter
